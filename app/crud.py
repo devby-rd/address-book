@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
-from . import models, schemas
+from . import models, schema
 
 
-def create_address(db: Session, address: schemas.AddressCreate):
+def create_address(db: Session, address: schema.AddressCreate):
     db_address = models.Address(**address.model_dump())
     db.add(db_address)
     db.commit()

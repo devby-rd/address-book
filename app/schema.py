@@ -27,7 +27,7 @@ class AddressCreate(AddressBase):
 
 
 # model for updating an address
-class AddressUpdate(AddressBase):
+class AddressUpdate(BaseModel):
     
     first_name: Optional[str] = None
     last_name: Optional[str] = None
@@ -48,7 +48,7 @@ class AddressUpdate(AddressBase):
 class AddressResponse(AddressBase):
     id: int
     created_at: datetime
-    updated_at: datetime
+    updated_at: Optional[datetime] = None
 
     model_config = {
         "from_attributes": True

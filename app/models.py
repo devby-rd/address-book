@@ -22,8 +22,8 @@ class Address(Base):
     country = Column(String, nullable=False)
 
     # Geo coordinates information
-    latitude = Column(Float, nullable=True, index=True)
-    longitude = Column(Float, nullable=True, index=True)
+    latitude = Column(Float, nullable=False, index=True)
+    longitude = Column(Float, nullable=False, index=True)
 
     # Timestamps
     created_at = Column(DateTime(timezone=True), server_default=func.now())
