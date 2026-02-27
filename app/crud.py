@@ -26,7 +26,7 @@ def delete_address(db: Session, address_id: int):
     return db_address
 
 
-def update_address(db: Session, address_id: int, address: schemas.AddressUpdate):
+def update_address(db: Session, address_id: int, address: schema.AddressUpdate):
     db_address = db.query(models.Address).filter(models.Address.id == address_id).first()
     if db_address:
         for key, value in address.model_dump(exclude_unset=True).items():
