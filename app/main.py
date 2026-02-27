@@ -2,6 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import List
 
+from app.utils import calculate_distance
+
 from .database import engine, get_db
 from . import models, schema, crud
 
@@ -45,3 +47,14 @@ def delete_address(address_id: int, db: Session = Depends(get_db)):
     if not db_address:
         raise HTTPException(status_code=404, detail="Address not found")
     return db_address
+
+
+@app.get("/addresses/nearby/", response_model=List[schema.AddressResponse])
+def get_nearby_addresses(latitude: float = Query(..., ge=-90, le=90), longitude: float = Query(..., ge=-180, le=180), radius: float = Query(..., gt=0, description="Search radius in kilometers (km)"), db: Session = Depends(get_db)):
+    addresses = crud.get_addresses(db=db)
+    nearby_addresses = []
+    for address in addresses:
+        distance = calculate_distance(latitude, longitude, address.latitude, address.longitude)
+        if distance <= radius:
+            nearby_addresses.append(address)
+    return nearby_addresses
