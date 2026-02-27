@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import List
@@ -6,10 +8,11 @@ from app.utils import calculate_distance
 
 from .database import engine, get_db
 from . import models, schema, crud
+from .logging_config import setup_logging
+
 
 # Set up logging
-import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+setup_logging()
 logger = logging.getLogger(__name__)
 
 # Create app instance
