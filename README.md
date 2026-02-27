@@ -27,7 +27,7 @@ A minimal REST API built using FastAPI and SQLite that allows users to:
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/devby-rd/address-book.git
 cd address_book
 ```
 
